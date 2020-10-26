@@ -15,6 +15,7 @@ export default function TablePage(){
         {name:'Hiago6',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
         {name:'Hiago7',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
         {name:'Hiago8',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
+        {name:'Carlos',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
 
 
     ]);
@@ -23,7 +24,7 @@ export default function TablePage(){
     const [buttonIndex,setButtonIndex]= useState(1);
 
     useEffect(()=> {
-        setNumberButtons(Math.floor(DataTable.length/3));
+        setNumberButtons(Math.ceil(DataTable.length/3));
         setButtonsElements([...new Array(numberButtons)].map((ele,index) => ele=index+1 ))
     },[DataTable,numberButtons])
 
