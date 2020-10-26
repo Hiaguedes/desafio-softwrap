@@ -1,14 +1,14 @@
 import React from 'react';
 import  { Switch, Route} from 'react-router-dom';
 
-import Table from './pages/Table';
+import TablePage from './pages/TablePage';
 
 export default function Routes(){
 
 
     return(
         <>
-        <Route exact path="/" component={Table}/>
+        <Route exact path="/" component={TablePage}/>
         </>
     )
 }
