@@ -40,7 +40,7 @@ export default function Inputs(){
 
             <Button className="mt-4" variant="primary" type="submit">Adicionar Dado</Button>
         </Form>
-        <TablePage data={data} numberRows={5}/>
+        <TablePage data={data} numberRows={4} setData={setData}/>
         </>
     )
 }

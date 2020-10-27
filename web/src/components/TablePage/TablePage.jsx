@@ -4,8 +4,7 @@ import './TablePage.css';
 import Pagination from 'react-bootstrap/Pagination';
 
 
-export default function TablePage({data,numberRows=3}){
-    const [DataTable,setDataTable] = useState(data);
+export default function TablePage({data,numberRows=3,setData}){
     const [numberButtons, setNumberButtons] = useState();
     const [buttonsElements, setButtonsElements] = useState([]);
     const [buttonIndex,setButtonIndex]= useState(1);
@@ -13,12 +12,12 @@ export default function TablePage({data,numberRows=3}){
     const [numberIndexEdit, setNumberIndexEdit] = useState();
 
     useEffect(()=> {
-        setNumberButtons(Math.ceil(DataTable.length/numberRows));
+        setNumberButtons(Math.ceil(data.length/numberRows));
         setButtonsElements([...new Array(numberButtons)].map((ele,index) => ele=index+1 ))
-    },[DataTable,numberButtons])
+    },[data,numberButtons])
 
     useEffect(() => {
-        setDataTable(data)
+        setData(data)
     },[data])
 
     const handleActiveButton = (ele) => {
@@ -28,7 +27,7 @@ export default function TablePage({data,numberRows=3}){
     const handleExcludeButtonClicked =(e) => {
         const dataTr = e.target.parentElement.parentElement.getAttribute('data-tr');
     
-        setDataTable(DataTable.filter((data,index)=> index !== Number(dataTr)))
+        setData(data.filter((data,index)=> index !== Number(dataTr)))
     }
 
     const handleExcludeEditButtonClicked = e => {
@@ -38,8 +37,8 @@ export default function TablePage({data,numberRows=3}){
     const handleSendEditLine = e => {
         const allTds = e.target.parentElement.parentElement.children;
 
-        setDataTable(
-            DataTable.map((ele,index)=> 
+        setData(
+            data.map((ele,index)=> 
                 index === numberIndexEdit ?
                 ele = {
                     nome: allTds[0].querySelector('input').value,
@@ -60,9 +59,9 @@ export default function TablePage({data,numberRows=3}){
         let linha = e.target.parentElement.parentElement;
         const dataTr = linha.getAttribute('data-tr');
         setNumberIndexEdit(Number(dataTr));
-        const objDataTable = DataTable[Number(dataTr)];
+        const objdata = data[Number(dataTr)];
 
-        setEditableObject(objDataTable);
+        setEditableObject(objdata);
 
     }
 
@@ -83,7 +82,7 @@ export default function TablePage({data,numberRows=3}){
         </thead>
         <tbody>
             {
-                DataTable
+                data
                 .filter((ele,index) => index < (buttonIndex)*numberRows && index >= (buttonIndex-1)*numberRows)
                 .map((data,index)=> {
                     return(
