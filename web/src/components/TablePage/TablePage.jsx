@@ -4,21 +4,8 @@ import './TablePage.css';
 import Pagination from 'react-bootstrap/Pagination';
 
 
-export default function TablePage(){
-    const [DataTable,setDataTable] = useState([
-        {nome:'Hiago0',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago1',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago2',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago3',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago4',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago5',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago6',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago7',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Hiago8',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-        {nome:'Carlos',idade:25, estadoCivil:'solteiro', cpf: 11111, cidade:'Petrópolis', estado: 'Rio de Janeiro'},
-
-
-    ]);
+export default function TablePage({data,numberRows=3}){
+    const [DataTable,setDataTable] = useState(data);
     const [numberButtons, setNumberButtons] = useState();
     const [buttonsElements, setButtonsElements] = useState([]);
     const [buttonIndex,setButtonIndex]= useState(1);
@@ -26,7 +13,7 @@ export default function TablePage(){
     const [numberIndexEdit, setNumberIndexEdit] = useState();
 
     useEffect(()=> {
-        setNumberButtons(Math.ceil(DataTable.length/3));
+        setNumberButtons(Math.ceil(DataTable.length/numberRows));
         setButtonsElements([...new Array(numberButtons)].map((ele,index) => ele=index+1 ))
     },[DataTable,numberButtons])
 
@@ -61,6 +48,8 @@ export default function TablePage(){
                 : ele=ele
             )
         )
+
+        setEditableObject({})
     }
 
     const handleEditButtonClicked =(e) => {
@@ -91,10 +80,10 @@ export default function TablePage(){
         <tbody>
             {
                 DataTable
-                .filter((ele,index) => index < (buttonIndex)*3 && index >= (buttonIndex-1)*3)
+                .filter((ele,index) => index < (buttonIndex)*numberRows && index >= (buttonIndex-1)*numberRows)
                 .map((data,index)=> {
                     return(
-                        <tr key={(buttonIndex-1)*3+index} data-tr={(buttonIndex-1)*3+index}>
+                        <tr key={(buttonIndex-1)*numberRows+index} data-tr={(buttonIndex-1)*numberRows+index}>
                             <td>{data.nome}</td>
                             <td>{data.idade}</td>
                             <td>{data.estadoCivil}</td>
