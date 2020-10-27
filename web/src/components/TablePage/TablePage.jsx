@@ -43,7 +43,7 @@ export default function TablePage({data,numberRows=3,setData}){
                 ele = {
                     nome: allTds[0].querySelector('input').value,
                     idade:Number(allTds[1].querySelector('input').value),
-                    estadoCivil:allTds[2].querySelector('input').value,
+                    estadoCivil:allTds[2].querySelector('select').value,
                     cpf: Number(allTds[3].querySelector('input').value),
                     cidade:allTds[4].querySelector('input').value,
                     estado: allTds[5].querySelector('input').value
@@ -105,7 +105,13 @@ export default function TablePage({data,numberRows=3,setData}){
         <tr>
             <td><Form.Control type="text" defaultValue={editableObject.nome} /></td>
             <td><Form.Control type="number" defaultValue={editableObject.idade} /></td>
-            <td><Form.Control type="text" defaultValue={editableObject.estadoCivil} /></td>
+            <td><Form.Control name="estadoCivil" as="select" defaultValue={editableObject.estadoCivil} className="input-form" type="text">
+                <option>Solteiro(a)</option>
+                <option>Casado(a)</option>
+                <option>Divorciado(a)</option>
+                <option>Viúvo(a)</option>
+                <option>Separado(a)</option>
+            </Form.Control></td>
             <td><Form.Control type="number" defaultValue={editableObject.cpf} /></td>
             <td><Form.Control type="text" defaultValue={editableObject.cidade} /></td>
             <td><Form.Control type="text" defaultValue={editableObject.estado} /></td>
