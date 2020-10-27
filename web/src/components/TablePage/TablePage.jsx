@@ -17,6 +17,10 @@ export default function TablePage({data,numberRows=3}){
         setButtonsElements([...new Array(numberButtons)].map((ele,index) => ele=index+1 ))
     },[DataTable,numberButtons])
 
+    useEffect(() => {
+        setDataTable(data)
+    },[data])
+
     const handleActiveButton = (ele) => {
         setButtonIndex(ele)
     }
