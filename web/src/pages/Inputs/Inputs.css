@@ -6,3 +6,7 @@
     flex-wrap: wrap;
     justify-content: left;
 }
+.error-text{
+    color: red;
+    display: block;
+}
