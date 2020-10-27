@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Table, Button} from 'react-bootstrap';
+import {Table, Button, Form} from 'react-bootstrap';
 import './TablePage.css';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -22,6 +22,8 @@ export default function TablePage(){
     const [numberButtons, setNumberButtons] = useState();
     const [buttonsElements, setButtonsElements] = useState([]);
     const [buttonIndex,setButtonIndex]= useState(1);
+    const [editableObject, setEditableObject] = useState({});
+    const [numberIndexEdit, setNumberIndexEdit] = useState();
 
     useEffect(()=> {
         setNumberButtons(Math.ceil(DataTable.length/3));
@@ -38,6 +40,39 @@ export default function TablePage(){
         setDataTable(DataTable.filter((data,index)=> index !== Number(dataTr)))
     }
 
+    const handleExcludeEditButtonClicked = e => {
+        setEditableObject({})
+    }
+
+    const handleSendEditLine = e => {
+        const allTds = e.target.parentElement.parentElement.children;
+
+        setDataTable(
+            DataTable.map((ele,index)=> 
+                index === numberIndexEdit ?
+                ele = {
+                    nome: allTds[0].querySelector('input').value,
+                    idade:Number(allTds[1].querySelector('input').value),
+                    estadoCivil:allTds[2].querySelector('input').value,
+                    cpf: Number(allTds[3].querySelector('input').value),
+                    cidade:allTds[4].querySelector('input').value,
+                    estado: allTds[5].querySelector('input').value
+                }
+                : ele=ele
+            )
+        )
+    }
+
+    const handleEditButtonClicked =(e) => {
+        let linha = e.target.parentElement.parentElement;
+        const dataTr = linha.getAttribute('data-tr');
+        setNumberIndexEdit(Number(dataTr));
+        const objDataTable = DataTable[Number(dataTr)];
+
+        setEditableObject(objDataTable);
+
+    }
+
     return (
     <div className="table-container">
     <Table responsive hover variant="dark">
@@ -50,6 +85,7 @@ export default function TablePage(){
                 <th>Cidade</th>
                 <th>Estado</th>
                 <th>Excluir linha?</th>
+                <th>Editar linha?</th>
             </tr>
         </thead>
         <tbody>
@@ -66,10 +102,27 @@ export default function TablePage(){
                             <td>{data.cidade}</td>
                             <td>{data.estado}</td>
                             <td><Button variant="danger" onClick={e => handleExcludeButtonClicked(e)}>Excluir Linha</Button></td>
+                            <td><Button variant="primary" onClick={e => handleEditButtonClicked(e)}>Editar Linha</Button></td>
                         </tr>
                     )
                 })
             }
+
+        { 
+        Object.keys(editableObject).length !== 0 ?      
+        <tr>
+            <td><Form.Control type="text" defaultValue={editableObject.nome} /></td>
+            <td><Form.Control type="number" defaultValue={editableObject.idade} /></td>
+            <td><Form.Control type="text" defaultValue={editableObject.estadoCivil} /></td>
+            <td><Form.Control type="number" defaultValue={editableObject.cpf} /></td>
+            <td><Form.Control type="text" defaultValue={editableObject.cidade} /></td>
+            <td><Form.Control type="text" defaultValue={editableObject.estado} /></td>
+            <td><Button variant="danger" onClick={e => handleExcludeEditButtonClicked(e)}>Excluir Edição</Button></td>
+            <td><Button variant="primary" onClick={e => handleSendEditLine(e)}>Enviar Edição</Button></td>
+        </tr>
+        :
+        <></>
+    	}
         </tbody>
     </Table>
         <Pagination>
