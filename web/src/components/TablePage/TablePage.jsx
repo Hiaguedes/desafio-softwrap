@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Table, Button, Form} from 'react-bootstrap';
 import './TablePage.css';
 import Pagination from 'react-bootstrap/Pagination';
+import validarCpf from 'validar-cpf';
 
 
 export default function TablePage({data,numberRows=3,setData}){
@@ -37,6 +38,20 @@ export default function TablePage({data,numberRows=3,setData}){
     const handleSendEditLine = e => {
         const allTds = e.target.parentElement.parentElement.children;
 
+        if(allTds[0].querySelector('input').value.length ===0) return;
+
+        if(allTds[1].querySelector('input').value.length ===0 ||
+             Number(allTds[1].querySelector('input').value) < 5 ||
+              Number(allTds[1].querySelector('input').value) > 120) return;
+
+        if(allTds[3].querySelector('input').value.length ===0 ||
+             validarCpf(allTds[3].querySelector('input').value) === false) return;
+
+        if(allTds[4].querySelector('input').value.length ===0) return;
+
+        if(allTds[5].querySelector('input').value.length ===0) return;
+
+
         setData(
             data.map((ele,index)=> 
                 index === numberIndexEdit ?
@@ -53,6 +68,7 @@ export default function TablePage({data,numberRows=3,setData}){
         )
 
         setEditableObject({})
+
     }
 
     const handleEditButtonClicked =(e) => {
@@ -104,7 +120,7 @@ export default function TablePage({data,numberRows=3,setData}){
         Object.keys(editableObject).length !== 0 ?      
         <tr>
             <td><Form.Control type="text" defaultValue={editableObject.nome} /></td>
-            <td><Form.Control type="number" defaultValue={editableObject.idade} /></td>
+            <td><Form.Control type="number" defaultValue={editableObject.idade}   /></td>
             <td><Form.Control name="estadoCivil" as="select" defaultValue={editableObject.estadoCivil} className="input-form" type="text">
                 <option>Solteiro(a)</option>
                 <option>Casado(a)</option>
@@ -112,9 +128,9 @@ export default function TablePage({data,numberRows=3,setData}){
                 <option>Viúvo(a)</option>
                 <option>Separado(a)</option>
             </Form.Control></td>
-            <td><Form.Control type="number" defaultValue={editableObject.cpf} /></td>
+            <td><Form.Control type="number" defaultValue={editableObject.cpf}  /></td>
             <td><Form.Control type="text" defaultValue={editableObject.cidade} /></td>
-            <td><Form.Control type="text" defaultValue={editableObject.estado} /></td>
+            <td><Form.Control type="text" defaultValue={editableObject.estado}  /></td>
             <td><Button variant="danger" onClick={e => handleExcludeEditButtonClicked(e)}>Excluir Edição</Button></td>
             <td><Button variant="primary" onClick={e => handleSendEditLine(e)}>Enviar Edição</Button></td>
         </tr>

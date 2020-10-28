@@ -92,8 +92,8 @@ export default function Inputs(){
             ,pattern: {
                 value: /^\d{3}[.-]?\d{3}[.-]?\d{3}[.-]?\d{2}$/,
                 message: 'Digite um cpf no formato correto'
-            }
-            ,
+            },
+            
             validate: () => validarCpf(cpf) ===true || 'Digite um CPF válido'
             
             })
