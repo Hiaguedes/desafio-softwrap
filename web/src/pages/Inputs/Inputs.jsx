@@ -3,18 +3,24 @@ import './Inputs.css';
 import TablePage from '../../components/TablePage/TablePage';
 import {Button, Form} from 'react-bootstrap';
 import { useForm } from "react-hook-form";
+import validarCpf from 'validar-cpf';
 
 export default function Inputs(){
     const [data,setData] = useState([])
+    const [cpf,setCpf] = useState()
 
     const { register, errors, handleSubmit } = useForm();   
     const onSubmit = dataInput => setData([...data,dataInput]);
 
+    const handleCPFInput = (e)=> {
+        setCpf(e.target.value)
+    }
+
     return (
         <>
         <Form className="form" variant="light" onSubmit={handleSubmit(onSubmit)}>
-            <Form.Label>Nome Completo:</Form.Label>
-            <Form.Control name="nome" className="input-form" type="text" ref={register(
+            <Form.Label htmlFor="nome">Nome Completo:</Form.Label>
+            <Form.Control id="nome" name="nome" className="input-form" type="text" ref={register(
                 {
                     required: {
                         value: true,
@@ -25,8 +31,8 @@ export default function Inputs(){
                     })}/>
             <Form.Text className="error-text w-100">{errors?.nome?.message}</Form.Text>
 
-            <Form.Label>Idade:</Form.Label>
-            <Form.Control name="idade" className="input-form" type="number" ref={register(
+            <Form.Label htmlFor="idade">Idade:</Form.Label>
+            <Form.Control id="idade" name="idade" className="input-form" type="number" ref={register(
                 {
                     min:{
                         value: 5,
@@ -44,8 +50,8 @@ export default function Inputs(){
                     })}/>
             <Form.Text className="error-text w-100">{errors?.idade?.message}</Form.Text>
 
-            <Form.Label>Estado Civil:</Form.Label>
-            <Form.Control name="estadoCivil" as="select" className="input-form" type="text" ref={register({required: true})}>
+            <Form.Label htmlFor="estadoCivil">Estado Civil:</Form.Label>
+            <Form.Control id="estadoCivil" name="estadoCivil" as="select" className="input-form" type="text" ref={register({required: true})}>
                 <option>Solteiro(a)</option>
                 <option>Casado(a)</option>
                 <option>Divorciado(a)</option>
@@ -53,22 +59,28 @@ export default function Inputs(){
                 <option>Separado(a)</option>
             </Form.Control>
 
-            <Form.Label>CPF:</Form.Label>
-            <Form.Control name="cpf" className="input-form" type="number" ref={
+            <Form.Label htmlFor="cpf">CPF:</Form.Label>
+            <Form.Control id="cpf" name="cpf" onInput={(e) => handleCPFInput(e)} className="input-form" type="number" ref={
                 register(
                 {
                     required: {
                         value: true,
                         message: 'Favor preencher o campo'
             }
+            ,pattern: {
+                value: /^\d{3}[.-]?\d{3}[.-]?\d{3}[.-]?\d{2}$/,
+                message: 'Digite um cpf no formato correto'
+            }
+            ,
+            validate: () => validarCpf(cpf) ===true || 'Digite um CPF válido'
             
             })
             }/>
             <Form.Text className="error-text w-100">{errors?.cpf?.message}</Form.Text>
             
 
-            <Form.Label>Cidade:</Form.Label>
-            <Form.Control name="cidade" className="input-form" type="text" ref={register({
+            <Form.Label htmlFor="cidade">Cidade:</Form.Label>
+            <Form.Control id="cidade" name="cidade" className="input-form" type="text" ref={register({
                 required: {
                     value: true,
                     message: 'Favor preencher o campo'
@@ -77,8 +89,8 @@ export default function Inputs(){
 
             <Form.Text className="error-text w-100">{errors?.cidade?.message}</Form.Text>
 
-            <Form.Label>Estado:</Form.Label>
-            <Form.Control name="estado" className="input-form" type="text" ref={register(
+            <Form.Label htmlFor="estado">Estado:</Form.Label>
+            <Form.Control id="estado" name="estado" className="input-form" type="text" ref={register(
                 {required: {
                     value: true,
                     message: 'Favor preencher o campo'

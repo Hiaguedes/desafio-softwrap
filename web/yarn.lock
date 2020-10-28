@@ -11775,6 +11775,11 @@ v8-to-istanbul@^6.0.1:
     convert-source-map "^1.6.0"
     source-map "^0.7.3"
 
+validar-cpf@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/validar-cpf/-/validar-cpf-2.1.2.tgz#f1ba21db5712216d15a8dff640bd42711defee0c"
+  integrity sha512-ULgNgeYkO9X/sfkpf1L3HmMqz7BLg9H0s3jn4jLARBOozCIFCX+/hlqhuOJHd8PhnRXxbkbtmV6WEx3BQd3HvQ==
+
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
