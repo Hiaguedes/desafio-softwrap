@@ -35,7 +35,7 @@ export default function Inputs(){
                     
                     
                     })}/>
-            <Form.Text className="error-text w-100"><XCircle/>  {errors?.nome?.message}</Form.Text>
+            {errors?.nome?.message &&<Form.Text className="error-text w-100"><XCircle/>  {errors?.nome?.message}</Form.Text>}
 
             <Form.Label htmlFor="idade">Idade:</Form.Label>
             <Form.Control id="idade"
@@ -59,7 +59,7 @@ export default function Inputs(){
                     }
                     
                     })}/>
-            <Form.Text className="error-text w-100"><XCircle/>  {errors?.idade?.message}</Form.Text>
+            {errors?.idade?.message && <Form.Text className="error-text w-100"><XCircle/>  {errors?.idade?.message}</Form.Text>}
 
             <Form.Label htmlFor="estadoCivil">Estado Civil:</Form.Label>
             <Form.Control id="estadoCivil"
@@ -98,7 +98,7 @@ export default function Inputs(){
             
             })
             }/>
-            <Form.Text className="error-text w-100"><XCircle/>  {errors?.cpf?.message}</Form.Text>
+            {errors?.cpf?.message && <Form.Text className="error-text w-100"><XCircle/>  {errors?.cpf?.message}</Form.Text>}
             
 
             <Form.Label htmlFor="cidade">Cidade:</Form.Label>
@@ -115,7 +115,7 @@ export default function Inputs(){
                 }
                 })}/>
 
-            <Form.Text className="error-text w-100"><XCircle/>  {errors?.cidade?.message}</Form.Text>
+            { errors?.cidade?.message && <Form.Text className="error-text w-100"><XCircle/>  {errors?.cidade?.message}</Form.Text>}
 
             <Form.Label htmlFor="estado">Estado:</Form.Label>
             <Form.Control id="estado"
@@ -129,7 +129,7 @@ export default function Inputs(){
                     message: 'Favor preencher o campo'
                 }
                 })}/>
-            <Form.Text className="error-text w-100"><XCircle/>  {errors?.estado?.message}</Form.Text>
+            { errors?.estado?.message && <Form.Text className="error-text w-100"><XCircle/>  {errors?.estado?.message}</Form.Text>}
 
             <Button className="mt-4" variant="primary" type="submit">Adicionar Dado</Button>
         </Form>
