@@ -30,7 +30,9 @@ export default function TablePage({data,numberRows=3,setData, keys}){
     const handleExcludeButtonClicked =(e) => {
         const dataTr = e.target.parentElement.parentElement.getAttribute('data-tr');
     
-        setData(data.filter((data,index)=> index !== Number(dataTr)))
+        setData(Object.entries(data).filter((data,index)=> index !== Number(dataTr)))
+        DataService.delete(keys[Number(dataTr)])
+        
     }
 
     const handleExcludeEditButtonClicked = e => {

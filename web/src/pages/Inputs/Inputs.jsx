@@ -23,7 +23,7 @@ export default function Inputs(){
 
         setKeys(Object.keys(dataServer))
 
-    },[])
+    },[dataServer])
 
     const handleCPFInput = (e)=> {
         setCpf(e.target.value)
