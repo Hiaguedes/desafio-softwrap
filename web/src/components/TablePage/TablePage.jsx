@@ -3,9 +3,11 @@ import {Table, Button, Form} from 'react-bootstrap';
 import './TablePage.css';
 import Pagination from 'react-bootstrap/Pagination';
 import validarCpf from 'validar-cpf';
+import DataService from '../../services/firebase.service';
+import api from '../../services/api';
 
 
-export default function TablePage({data,numberRows=3,setData}){
+export default function TablePage({data,numberRows=3,setData, keys}){
     const [numberButtons, setNumberButtons] = useState();
     const [buttonsElements, setButtonsElements] = useState([]);
     const [buttonIndex,setButtonIndex]= useState(1);
@@ -13,7 +15,7 @@ export default function TablePage({data,numberRows=3,setData}){
     const [numberIndexEdit, setNumberIndexEdit] = useState();
 
     useEffect(()=> {
-        setNumberButtons(Math.ceil(data.length/numberRows));
+        setNumberButtons(Math.ceil(Object.entries(data).length/numberRows));
         setButtonsElements([...new Array(numberButtons)].map((ele,index) => ele=index+1 ))
     },[data,numberButtons])
 
@@ -98,17 +100,17 @@ export default function TablePage({data,numberRows=3,setData}){
         </thead>
         <tbody>
             {
-                data
+                Object.entries(data)
                 .filter((ele,index) => index < (buttonIndex)*numberRows && index >= (buttonIndex-1)*numberRows)
                 .map((data,index)=> {
                     return(
                         <tr key={(buttonIndex-1)*numberRows+index} data-tr={(buttonIndex-1)*numberRows+index}>
-                            <td>{data.nome}</td>
-                            <td>{data.idade}</td>
-                            <td>{data.estadoCivil}</td>
-                            <td>{data.cpf}</td>
-                            <td>{data.cidade}</td>
-                            <td>{data.estado}</td>
+                            <td>{data[1].nome}</td>
+                            <td>{data[1].idade}</td>
+                            <td>{data[1].estadoCivil}</td>
+                            <td>{data[1].cpf}</td>
+                            <td>{data[1].cidade}</td>
+                            <td>{data[1].estado}</td>
                             <td><Button variant="danger" onClick={e => handleExcludeButtonClicked(e)}>Excluir Linha</Button></td>
                             <td><Button variant="primary" onClick={e => handleEditButtonClicked(e)}>Editar Linha</Button></td>
                         </tr>

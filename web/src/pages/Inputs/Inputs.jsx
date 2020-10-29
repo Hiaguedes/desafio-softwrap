@@ -4,14 +4,26 @@ import TablePage from '../../components/TablePage/TablePage';
 import {Button, Form} from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import validarCpf from 'validar-cpf';
-import {XCircle} from 'react-bootstrap-icons'
+import {XCircle} from 'react-bootstrap-icons';
+import DataService from '../../services/firebase.service';
+import api from '../../services/api';
 
 export default function Inputs(){
-    const [data,setData] = useState([])
-    const [cpf,setCpf] = useState()
+    const [cpf,setCpf] = useState();
+    const [dataServer,setDataServer]= useState([]);
+    const [keys,setKeys] = useState([])
 
     const { register, errors, handleSubmit } = useForm();   
-    const onSubmit = dataInput => setData([...data,dataInput]);
+    const onSubmit = dataInput => {
+        DataService.create(dataInput);
+            };
+       
+    useEffect(() => {
+        api.get('/localhost:5000/.json').then(res => setDataServer(res.data));
+
+        setKeys(Object.keys(dataServer))
+
+    },[])
 
     const handleCPFInput = (e)=> {
         setCpf(e.target.value)
@@ -133,7 +145,7 @@ export default function Inputs(){
 
             <Button className="mt-4" variant="primary" type="submit">Adicionar Dado</Button>
         </Form>
-        <TablePage data={data} numberRows={4} setData={setData}/>
+        <TablePage data={dataServer} numberRows={4} setData={setDataServer} keys={keys}/>
         </>
     )
 }
