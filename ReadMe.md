@@ -73,6 +73,12 @@ Coloquei as regras do servidor como qualquer um pode ler e qualquer um pode escr
 
 - separar uma seção da página para mostrar as mensagens de validação para os inputs de edição dos dados da tabela
 
+- Input para perguntar ao usuário quantas linhas ele quer na tabela
+
+- Fazer com que os botões da paginação sejam diferentes para quando se tenha uma 8 páginas de tabela para que fique mais ou menos parecido com os botões de paginação [dessa tabela](https://examples.bootstrap-table.com/)
+
+- Fazer uso de alguma api que me retorna quais cidades eu tenho em cada estado selecionado para termos uma maior conformidade dos dados
+
 ## Link para o relatório da aplicação
 
 Um relatório completo da aplicação pode ser visto nesse [link](https://docs.google.com/document/d/19wnAeMt_OzBYNY8uUB4JR-5P_qkZG4_njl1O18_FapQ/edit?usp=sharing)
