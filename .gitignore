@@ -3,4 +3,5 @@
 .github
 .firebaserc
 firebase-debug.log
+.firebase
 

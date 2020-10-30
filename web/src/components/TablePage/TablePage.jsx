@@ -4,8 +4,6 @@ import './TablePage.css';
 import Pagination from 'react-bootstrap/Pagination';
 import validarCpf from 'validar-cpf';
 import DataService from '../../services/firebase.service';
-import api from '../../services/api';
-
 
 export default function TablePage({data,numberRows=3,setData, keys}){
     const [numberButtons, setNumberButtons] = useState();
