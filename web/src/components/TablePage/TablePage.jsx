@@ -55,21 +55,23 @@ export default function TablePage({data,numberRows=3,setData, keys}){
 
         if(allTds[5].querySelector('input').value.length ===0) return;
 
-
+        const newData = {
+            nome: allTds[0].querySelector('input').value,
+            idade:Number(allTds[1].querySelector('input').value),
+            estadoCivil:allTds[2].querySelector('select').value,
+            cpf: Number(allTds[3].querySelector('input').value),
+            cidade:allTds[4].querySelector('input').value,
+            estado: allTds[5].querySelector('input').value
+        }
         setData(
-            data.map((ele,index)=> 
+            Object.entries(data).map((ele,index)=> 
                 index === numberIndexEdit ?
-                ele = {
-                    nome: allTds[0].querySelector('input').value,
-                    idade:Number(allTds[1].querySelector('input').value),
-                    estadoCivil:allTds[2].querySelector('select').value,
-                    cpf: Number(allTds[3].querySelector('input').value),
-                    cidade:allTds[4].querySelector('input').value,
-                    estado: allTds[5].querySelector('input').value
-                }
+                ele = newData
                 : ele=ele
             )
         )
+
+        DataService.update(keys[numberIndexEdit],newData)
 
         setEditableObject({})
 
@@ -79,7 +81,7 @@ export default function TablePage({data,numberRows=3,setData, keys}){
         let linha = e.target.parentElement.parentElement;
         const dataTr = linha.getAttribute('data-tr');
         setNumberIndexEdit(Number(dataTr));
-        const objdata = data[Number(dataTr)];
+        const objdata = Object.entries(data)[Number(dataTr)][1];
 
         setEditableObject(objdata);
 
